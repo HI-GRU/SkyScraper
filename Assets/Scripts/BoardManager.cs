@@ -14,7 +14,7 @@ public class BoardManager : MonoBehaviour
     //TODO: 시작 버튼 만들기
     private void Start()
     {
-        CreateBoard(1); // 1스테이지 테스트
+        CreateBoard(3); // 1스테이지 테스트
     }
 
     public void CreateBoard(int level)
@@ -45,7 +45,8 @@ public class BoardManager : MonoBehaviour
 
         // TODO: 크기 및 간격 조절 메소드 수정 필요
         Vector3 tileSize = spriteRenderer.bounds.size;
-        float gap = tileSize.x * 0.1F;
+        // float gap = tileSize.x * 0.1F;
+        float gap = 0;
 
         for (int z = 0; z < stage.height; z++)
         {
@@ -54,6 +55,7 @@ public class BoardManager : MonoBehaviour
                 Vector3 position = new Vector3(x * (tileSize.x + gap), 0, z * (tileSize.z + gap));
 
                 GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
+                tileObject.name = $"Tile ({x}, {z})";
                 Tile tile = tileObject.GetComponent<Tile>();
                 tiles[z, x] = tile;
             }

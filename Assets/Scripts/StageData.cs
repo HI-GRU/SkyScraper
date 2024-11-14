@@ -8,6 +8,7 @@ public class StageData : ScriptableObject
     public Stage[] stages = new Stage[] {
         new Stage(3, 1, "ex_stage-1"),
         new Stage(5, 1, "ex_stage-2"),
+        new Stage(4, 2, "ex_stage-3"),
     };
 }
 
