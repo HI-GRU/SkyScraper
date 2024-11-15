@@ -36,16 +36,17 @@ public class BoardManager : MonoBehaviour
         GameObject board = new("Board");
         board.transform.parent = gameObject.transform;
 
-        SpriteRenderer spriteRenderer = tilePrefab.GetComponent<SpriteRenderer>();
-        if (spriteRenderer == null)
-        {
-            Debug.LogError("tilePrefab에 spriteRenderer가 없습니다.");
-            return;
-        }
-
         // TODO: 크기 및 간격 조절 메소드 수정 필요
-        Vector3 tileSize = spriteRenderer.bounds.size;
+        // SpriteRenderer spriteRenderer = tilePrefab.GetComponent<SpriteRenderer>();
+        // if (spriteRenderer == null)
+        // {
+        //     Debug.LogError("tilePrefab에 spriteRenderer가 없습니다.");
+        //     return;
+        // }
+        // Vector3 tileSize = spriteRenderer.bounds.size;
         // float gap = tileSize.x * 0.1F;
+
+        Vector3 tileSize = new Vector3(1, 1, 1);
         float gap = 0;
 
         for (int z = 0; z < stage.height; z++)
