@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] private GameObject tilePrefab;
+    [SerializeField] private readonly GameObject tilePrefab;
     private StageData stageData;
 
     private Tile[,] tiles;
-    private int tileX => tiles?.GetLength(0) ?? 0;
-    private int tileZ => tiles?.GetLength(1) ?? 0;
+    private int TileX => tiles?.GetLength(0) ?? 0;
+    private int TileZ => tiles?.GetLength(1) ?? 0;
 
     private void Awake()
     {
@@ -64,9 +64,9 @@ public class BoardManager : MonoBehaviour
     {
         if (tiles == null) return;
 
-        for (int x = 0; x < tileX; x++)
+        for (int x = 0; x < TileX; x++)
         {
-            for (int z = 0; z < tileZ; z++)
+            for (int z = 0; z < TileZ; z++)
             {
                 if (tiles[x, z] != null)
                 {

@@ -1,8 +1,8 @@
 public class Building
 {
-    public int sizeX { get; private set; }
-    public int sizeY { get; private set; } // 높이
-    public int sizeZ { get; private set; }
+    public int SizeX { get; private set; }
+    public int SizeY { get; private set; } // 높이
+    public int SizeZ { get; private set; }
 
     
 }
