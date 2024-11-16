@@ -1,13 +1,15 @@
 public class Stage
 {
-    public int x;
-    public int z;
-    public string stageName;
+    public int SizeX { get; private set; }
+    public int SizeZ { get; private set; }
+    public Building[] buildings { get; private set; }
+    public string stageName { get; private set; }
 
-    public Stage(int x, int z, string stageName)
+    public Stage(int SizeX, int SizeZ, Building[] buildings, string stageName)
     {
-        this.x = x;
-        this.z = z;
+        this.SizeX = SizeX;
+        this.SizeZ = SizeZ;
+        this.buildings = buildings;
         this.stageName = stageName;
     }
 }

@@ -14,7 +14,6 @@ public class BoardManager : MonoBehaviour
     private void Awake()
     {
         if (stageData == null) stageData = Resources.Load<StageData>("StageData");
-
         if (stageData == null) Debug.LogError("Unfinded StageData");
     }
 
@@ -24,7 +23,7 @@ public class BoardManager : MonoBehaviour
         CreateBoard(3); // 스테이지 테스트
     }
 
-    public void CreateBoard(int level)
+    private void CreateBoard(int level)
     {
         if (level <= 0 || level > stageData.stages.Length)
         {
@@ -39,16 +38,16 @@ public class BoardManager : MonoBehaviour
     private void GenerateBoard(Stage stage)
     {
         ClearBoard();
-        tiles = new Tile[stage.x, stage.z];
+        tiles = new Tile[stage.SizeX, stage.SizeZ];
         GameObject board = new("Board");
         board.transform.parent = gameObject.transform;
 
         Vector3 tileSize = new Vector3(1, 1, 1);
         float gap = 0;
 
-        for (int x = 0; x < stage.x; x++)
+        for (int x = 0; x < stage.SizeX; x++)
         {
-            for (int z = 0; z < stage.z; z++)
+            for (int z = 0; z < stage.SizeZ; z++)
             {
                 Vector3 position = new Vector3(x * (tileSize.x + gap), 0, z * (tileSize.z + gap));
 

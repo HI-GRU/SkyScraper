@@ -6,8 +6,35 @@ using UnityEngine;
 public class StageData : ScriptableObject
 {
     public Stage[] stages = new Stage[] {
-        new(1, 3, "ex_stage-1"),
-        new(1, 5, "ex_stage-2"),
-        new(2, 4, "ex_stage-3"),
+        new(
+            1,
+            3,
+            new Building[] {
+                new Building(1, 3, 1),
+                new Building(1, 2, 1),
+                new Building(1, 1, 1),
+            },
+            "ex_stage-1"
+            ),
+        new(
+            1,
+            5,
+            new Building[] {
+                new Building(1, 3, 1),
+                new Building(1, 2, 1),
+                new Building(1, 1, 1),
+            },
+            "ex_stage-2"
+            ),
+        new(
+            2,
+            4,
+            new Building[] {
+                new Building(1, 3, 1),
+                new Building(1, 2, 1),
+                new Building(1, 1, 1),
+            },
+            "ex_stage-3"
+            ),
     };
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class BloackManager : MonoBehaviour
 {
-    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private readonly GameObject blockPrefab;
 
-    // public GameObject CreateBuilding(int height, Vector3 position) {
+    private GameObject CreateBuilding(int level)
+    {
 
-    // }
+    }
 }
