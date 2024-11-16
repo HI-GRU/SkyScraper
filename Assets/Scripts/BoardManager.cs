@@ -8,26 +8,20 @@ public class BoardManager : MonoBehaviour
     private StageData stageData;
 
     private Tile[,] tiles;
-    private int height => tiles?.GetLength(0) ?? 0;
-    private int width => tiles?.GetLength(1) ?? 0;
+    private int tileX => tiles?.GetLength(0) ?? 0;
+    private int tileZ => tiles?.GetLength(1) ?? 0;
 
     private void Awake()
     {
-        if (stageData == null)
-        {
-            stageData = Resources.Load<StageData>("StageData");
-        }
+        if (stageData == null) stageData = Resources.Load<StageData>("StageData");
 
-        if (stageData == null)
-        {
-            Debug.LogError("Unfinded StageData");
-        }
+        if (stageData == null) Debug.LogError("Unfinded StageData");
     }
 
     //TODO: 시작 버튼 만들기
     private void Start()
     {
-        CreateBoard(3); // 1스테이지 테스트
+        CreateBoard(3); // 스테이지 테스트
     }
 
     public void CreateBoard(int level)
@@ -45,33 +39,23 @@ public class BoardManager : MonoBehaviour
     private void GenerateBoard(Stage stage)
     {
         ClearBoard();
-        tiles = new Tile[stage.height, stage.width];
+        tiles = new Tile[stage.x, stage.z];
         GameObject board = new("Board");
         board.transform.parent = gameObject.transform;
-
-        // TODO: 크기 및 간격 조절 메소드 수정 필요
-        // SpriteRenderer spriteRenderer = tilePrefab.GetComponent<SpriteRenderer>();
-        // if (spriteRenderer == null)
-        // {
-        //     Debug.LogError("tilePrefab에 spriteRenderer가 없습니다.");
-        //     return;
-        // }
-        // Vector3 tileSize = spriteRenderer.bounds.size;
-        // float gap = tileSize.x * 0.1F;
 
         Vector3 tileSize = new Vector3(1, 1, 1);
         float gap = 0;
 
-        for (int z = 0; z < stage.height; z++)
+        for (int x = 0; x < stage.x; x++)
         {
-            for (int x = 0; x < stage.width; x++)
+            for (int z = 0; z < stage.z; z++)
             {
                 Vector3 position = new Vector3(x * (tileSize.x + gap), 0, z * (tileSize.z + gap));
 
                 GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
                 tileObject.name = $"Tile ({x}, {z})";
                 Tile tile = tileObject.GetComponent<Tile>();
-                tiles[z, x] = tile;
+                tiles[x, z] = tile;
             }
         }
     }
@@ -80,13 +64,13 @@ public class BoardManager : MonoBehaviour
     {
         if (tiles == null) return;
 
-        for (int z = 0; z < height; z++)
+        for (int x = 0; x < tileX; x++)
         {
-            for (int x = 0; x < width; x++)
+            for (int z = 0; z < tileZ; z++)
             {
-                if (tiles[z, x] != null)
+                if (tiles[x, z] != null)
                 {
-                    Destroy(tiles[z, x].gameObject);
+                    Destroy(tiles[x, z].gameObject);
                 }
             }
         }
