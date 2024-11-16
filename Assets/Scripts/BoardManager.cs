@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    [SerializeField] private readonly GameObject tilePrefab;
+    [SerializeField] private GameObject tilePrefab;
     private StageData stageData;
 
     private Tile[,] tiles;
