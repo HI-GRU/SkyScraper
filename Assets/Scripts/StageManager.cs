@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class BoardManager : MonoBehaviour
     private StageData stageData;
 
     private Tile[,] tiles;
+    private Building[] buildings;
     private int TileX => tiles?.GetLength(0) ?? 0;
     private int TileZ => tiles?.GetLength(1) ?? 0;
 
@@ -20,7 +22,7 @@ public class BoardManager : MonoBehaviour
     //TODO: 시작 버튼 만들기
     private void Start()
     {
-        CreateBoard(3); // 스테이지 테스트
+        CreateBoard(1); // 스테이지 테스트
     }
 
     private void CreateBoard(int level)
@@ -32,17 +34,18 @@ public class BoardManager : MonoBehaviour
         }
 
         Stage stage = stageData.stages[level - 1];
+        ClearBoard();
         GenerateBoard(stage);
+        GenerateBuildings(stage);
     }
 
     private void GenerateBoard(Stage stage)
     {
-        ClearBoard();
         tiles = new Tile[stage.SizeX, stage.SizeZ];
         GameObject board = new("Board");
         board.transform.parent = gameObject.transform;
 
-        Vector3 tileSize = new Vector3(1, 1, 1);
+        Vector3 tileSize = tilePrefab.transform.localScale;
         float gap = 0;
 
         for (int x = 0; x < stage.SizeX; x++)
@@ -57,6 +60,29 @@ public class BoardManager : MonoBehaviour
                 tiles[x, z] = tile;
             }
         }
+    }
+
+    private void GenerateBuildings(Stage stage)
+    {
+        buildings = stage.buildings;
+
+        for (int x = 0; x < buildings.Length; x++)
+        {
+            Building building = buildings[x];
+
+            Vector3 position = new Vector3(x, 0, 0);
+
+            GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
+            GameObject buildingObject = Instantiate(buildingPrefab, position, buildingPrefab.transform.rotation);
+            buildingObject.name = $"Building ({x})";
+
+            
+        }
+    }
+
+    private GameObject GetBuildingPrefab(string buildingId)
+    {
+        return Resources.Load<GameObject>($"Prefabs/Buildings/{buildingId}");
     }
 
     private void ClearBoard()
