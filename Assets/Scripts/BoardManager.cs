@@ -5,11 +5,24 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
     [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private StageData stageData;
+    private StageData stageData;
 
     private Tile[,] tiles;
     private int height => tiles?.GetLength(0) ?? 0;
     private int width => tiles?.GetLength(1) ?? 0;
+
+    private void Awake()
+    {
+        if (stageData == null)
+        {
+            stageData = Resources.Load<StageData>("StageData");
+        }
+
+        if (stageData == null)
+        {
+            Debug.LogError("Unfinded StageData");
+        }
+    }
 
     //TODO: 시작 버튼 만들기
     private void Start()
