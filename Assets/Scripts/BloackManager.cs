@@ -6,7 +6,7 @@ public class BloackManager : MonoBehaviour
 {
     [SerializeField] private readonly GameObject blockPrefab;
 
-    private GameObject CreateBuilding(int level)
+    private GameObject GenerateBuilding(Stage stage)
     {
 
     }
