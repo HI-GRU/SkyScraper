@@ -86,7 +86,7 @@ public class StageManager : MonoBehaviour
             GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
             GameObject buildingObject = Instantiate(buildingPrefab, position, buildingPrefab.transform.rotation, board.transform);
             buildingObject.name = $"Building ({x})";
-            buildingObject.transform.localScale = new Vector3(1F, 1F, 1F);
+            buildingObject.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F); // Blender Export 스케일 수정 시 코드 수정 예정
         }
     }
 
