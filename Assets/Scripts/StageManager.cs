@@ -33,7 +33,7 @@ public class StageManager : MonoBehaviour
     //TODO: 시작 버튼 만들기
     private void Start()
     {
-        CreateBoard(1); // 스테이지 테스트
+        CreateBoard(2); // 스테이지 테스트
     }
 
     private void CreateBoard(int level)
@@ -55,17 +55,15 @@ public class StageManager : MonoBehaviour
         tiles = new Tile[stage.SizeX, stage.SizeZ];
 
         Vector3 tileSize = tilePrefab.transform.localScale;
-        float gap = 0;
 
         for (int x = 0; x < stage.SizeX; x++)
         {
             for (int z = 0; z < stage.SizeZ; z++)
             {
-                Vector3 position = new Vector3(x * (tileSize.x + gap), 0, z * (tileSize.z + gap));
+                Vector3 position = new Vector3(x, 0, z);
 
                 GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
                 tileObject.name = $"Tile ({x}, {z})";
-                tileObject.transform.localScale = new Vector3(1F, 0.1F, 1F);
 
                 Tile tile = tileObject.GetComponent<Tile>();
                 tiles[x, z] = tile;
@@ -84,9 +82,9 @@ public class StageManager : MonoBehaviour
             Vector3 position = new Vector3(x, 0, 0);
 
             GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
-            GameObject buildingObject = Instantiate(buildingPrefab, position, buildingPrefab.transform.rotation, board.transform);
+
+            GameObject buildingObject = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), board.transform);
             buildingObject.name = $"Building ({x})";
-            buildingObject.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F); // Blender Export 스케일 수정 시 코드 수정 예정
         }
     }
 
