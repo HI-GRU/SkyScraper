@@ -75,11 +75,14 @@ public class StageManager : MonoBehaviour
     {
         buildings = stage.buildings;
 
+        int posX = 0;
+
         for (int x = 0; x < buildings.Length; x++)
         {
             Building building = buildings[x];
 
-            Vector3 position = new Vector3(x, 0, 0);
+            Vector3 position = new Vector3(posX, 0, -5);
+            posX += building.SizeX + 1;
 
             GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
 
