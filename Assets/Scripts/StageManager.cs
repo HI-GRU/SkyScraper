@@ -64,6 +64,7 @@ public class StageManager : MonoBehaviour
 
                 GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
                 tileObject.name = $"Tile ({x}, {z})";
+                tileObject.tag = "Tile";
 
                 Tile tile = tileObject.GetComponent<Tile>();
                 tiles[x, z] = tile;
@@ -88,6 +89,7 @@ public class StageManager : MonoBehaviour
 
             GameObject buildingObject = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), board.transform);
             buildingObject.name = $"Building ({x})";
+            buildingObject.tag = "Building";
         }
     }
 

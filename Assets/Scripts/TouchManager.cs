@@ -5,17 +5,28 @@ using UnityEngine;
 public class TouchManager : MonoBehaviour
 {
 
+    private GameObject selectedBuilding;
+
     private void Update()
     {
+        HandleBuildingDrag();
+    }
 
+    private void HandleBuildingDrag()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            Vector3 touchPos = Input.mousePosition;
+            Ray ray = Camera.main.ScreenPointToRay(touchPos);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.name + " hit!!!");
+                if (hit.collider.CompareTag("Building"))
+                {
+                    selectedBuilding = hit.transform.gameObject;
+                    Debug.Log(selectedBuilding.name);
+                }
             }
         }
-
     }
 }
