@@ -1,36 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
-    public Stage[] stages = new Stage[] {
-        new(
-            1,
-            3,
-            new Building[] {
-                new Building(1, 3, 1, "blue_1.3.1"),
-                new Building(1, 2, 1, "green_1.2.1"),
-                new Building(1, 1, 1, "orange_1.1.1"),
-            },
-            "ex_stage-1"
-            ),
-        new(
-            3,
-            3,
-            new Building[] {
-                new Building(1, 3, 1, "blue_1.3.1"),
-                new Building(1, 2, 1, "green_1.2.1"),
-                new Building(1, 1, 1, "orange_1.1.1"),
-                new Building(1, 3, 1, "blue_1.3.1"),
-                new Building(1, 2, 1, "green_1.2.1"),
-                new Building(1, 1, 1, "orange_1.1.1"),
-                new Building(1, 3, 1, "blue_1.3.1"),
-                new Building(1, 2, 1, "green_1.2.1"),
-                new Building(1, 1, 1, "orange_1.1.1"),
-            },
-            "ex_stage-2"
-            ),
-    };
+    private Stage[] stages = new Stage[]
+   {
+       new Stage(
+           new Vector2(1, 3),
+           new Building[]
+           {
+               new Building(
+                   new bool[1][][] {
+                       new bool[3][] {
+                           new bool[] { true },
+                           new bool[] { true },
+                           new bool[] { true }
+                       }
+                   },
+                   "blue_1.3.1"
+               ),
+               new Building(
+                   new bool[1][][] {
+                       new bool[2][] {
+                           new bool[] { true },
+                           new bool[] { true }
+                       }
+                   },
+                   "green_1.2.1"
+               ),
+               new Building(
+                   new bool[1][][] {
+                       new bool[1][] {
+                           new bool[] { true }
+                       }
+                   },
+                   "orange_1.1.1"
+               )
+           }
+       )
+   };
+
+    public Stage GetStage(int level)
+    {
+        if (level == 0 || level > stages.Length)
+        {
+            Debug.LogError($"Invalid Level: {level}");
+            return null;
+        }
+        return stages[level - 1];
+    }
 }

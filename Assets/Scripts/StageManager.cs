@@ -1,127 +1,82 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
-    [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private GameObject[] buildingPrefabs; // Inspector에서 직접 넣는 방식
+    [Header("Game Asset Setting")]
+    // [SerializeField] private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
+    [SerializeField] private GameObject[] buildingPrefabs;
     private StageData stageData;
-    private GameObject board;
-    private const string building = "Building";
-    private const string tile = "Tile";
+    private Stage currentStage;
 
-    private Tile[,] tiles;
-    private Building[] buildings;
-    private int TileX => tiles?.GetLength(0) ?? 0;
-    private int TileZ => tiles?.GetLength(1) ?? 0;
+    private GridSystem gridSystem;
+    private GameObject boardObject;
 
     private void Awake()
     {
-        if (stageData == null) stageData = Resources.Load<StageData>("StageData");
-        if (stageData == null) Debug.LogError("Unfinded StageData !!!");
+        LoadStageData();
+        LoadBoard();
+    }
+
+    private void LoadStageData()
+    {
+        stageData = Resources.Load<StageData>("StageData");
+        if (stageData == null) Debug.LogError("StageData not found!");
 
         if (buildingPrefabs == null || buildingPrefabs.Length == 0)
-        {
-            Debug.LogError("Empty Building prefabs !!!");
-        }
-
-        // Board Object 생성
-        board = new("Board");
-        board.transform.parent = gameObject.transform;
+            Debug.LogError("Building prefabs not assigned!");
     }
 
-    //TODO: 시작 버튼 만들기
-    private void Start()
+    private void LoadBoard()
     {
-        CreateBoard(2); // 스테이지 테스트
+        boardObject = new GameObject("Board");
+        boardObject.transform.parent = transform;
+        CreateStage(1);
     }
 
-    private void CreateBoard(int level)
+    private void CreateStage(int level)
     {
-        if (level <= 0 || level > stageData.stages.Length)
-        {
-            Debug.LogError("Invalid Level: {level}");
-            return;
-        }
+        ClearStage();
 
-        Stage stage = stageData.stages[level - 1];
-        ClearBoard();
-        GenerateTiles(stage);
-        GenerateBuildings(stage);
+        currentStage = stageData.GetStage(level);
+        CreateBuildings();
+
     }
 
-    private void GenerateTiles(Stage stage)
+    private void ClearStage()
     {
-        tiles = new Tile[stage.SizeX, stage.SizeZ];
-
-        Vector3 tileSize = tilePrefab.transform.localScale;
-
-        for (int x = 0; x < stage.SizeX; x++)
+        foreach (Transform child in boardObject.transform)
         {
-            for (int z = 0; z < stage.SizeZ; z++)
-            {
-                Vector3 position = new Vector3(x, 0, z);
-
-                GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
-                tileObject.name = $"Tile ({x}, {z})";
-                tileObject.tag = StageManager.tile;
-                tileObject.layer = LayerMask.NameToLayer(StageManager.tile);
-
-                Tile tile = tileObject.GetComponent<Tile>();
-                tiles[x, z] = tile;
-            }
+            Destroy(child.gameObject);
         }
     }
 
-    private void GenerateBuildings(Stage stage)
+    private void CreateBuildings()
     {
-        buildings = stage.buildings;
+        if (currentStage == null) return;
 
-        int posX = 0;
-
-        for (int x = 0; x < buildings.Length; x++)
+        for (int i = 0; i < currentStage.buildings.Length; i++)
         {
-            Building building = buildings[x];
-
-            Vector3 position = new Vector3(posX, 0, -5);
-            posX += building.SizeX + 1;
-
+            Building building = currentStage.buildings[i];
             GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
 
-            GameObject buildingObject = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), board.transform);
-            buildingObject.name = $"Building ({x})";
-            buildingObject.tag = StageManager.building;
-            buildingObject.layer = LayerMask.NameToLayer(StageManager.building);
+            if (buildingPrefab != null)
+            {
+                Vector3 position = new Vector3(-2f, 0f, i * 2f);
+                GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
+                buildingObj.name = $"Building_{i}";
+                buildingObj.tag = "Building";
+            }
         }
     }
 
     private GameObject GetBuildingPrefab(string buildingId)
     {
-        foreach (GameObject buildingPrefab in buildingPrefabs)
+        foreach (GameObject prefab in buildingPrefabs)
         {
-            if (buildingPrefab.name.Equals(buildingId)) return buildingPrefab;
+            if (prefab.name.Equals(buildingId)) return prefab;
         }
-        Debug.LogError("Undefined building prefab ID");
+        Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
     }
 
-    private void ClearBoard()
-    {
-        if (tiles == null) return;
-
-        for (int x = 0; x < TileX; x++)
-        {
-            for (int z = 0; z < TileZ; z++)
-            {
-                if (tiles[x, z] != null)
-                {
-                    Destroy(tiles[x, z].gameObject);
-                }
-            }
-        }
-
-        tiles = null;
-    }
 }

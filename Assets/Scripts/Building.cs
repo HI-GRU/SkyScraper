@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class Building
 {
-    public int SizeX { get; }
-    public int SizeY { get; } // 높이
-    public int SizeZ { get; }
-    public string BuildingId { get; }
+    private bool[][][] shape;
+    public string BuildingId { get; private set; }
 
-    public Building(int SizeX, int SizeY, int SizeZ, string BuildingId)
+    public Building(bool[][][] shape, string BuildingId)
     {
-        this.SizeX = SizeX;
-        this.SizeY = SizeY;
-        this.SizeZ = SizeZ;
+        this.shape = shape;
         this.BuildingId = BuildingId;
+    }
+
+    public bool IsOccupied(int x, int y, int z)
+    {
+        return shape[x][y][z];
     }
 }

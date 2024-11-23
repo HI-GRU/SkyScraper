@@ -1,15 +1,13 @@
+using UnityEngine;
+
 public class Stage
 {
-    public int SizeX { get; private set; }
-    public int SizeZ { get; private set; }
+    public Vector2 size;
     public Building[] buildings { get; private set; }
-    public string stageName { get; private set; }
 
-    public Stage(int SizeX, int SizeZ, Building[] buildings, string stageName)
+    public Stage(Vector2 size, Building[] buildings)
     {
-        this.SizeX = SizeX;
-        this.SizeZ = SizeZ;
+        this.size = size;
         this.buildings = buildings;
-        this.stageName = stageName;
     }
 }
