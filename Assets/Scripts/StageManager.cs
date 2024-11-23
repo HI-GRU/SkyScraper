@@ -9,6 +9,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private GameObject[] buildingPrefabs; // Inspector에서 직접 넣는 방식
     private StageData stageData;
     private GameObject board;
+    private const string building = "Building";
+    private const string tile = "Tile";
 
     private Tile[,] tiles;
     private Building[] buildings;
@@ -64,7 +66,8 @@ public class StageManager : MonoBehaviour
 
                 GameObject tileObject = Instantiate(tilePrefab, position, tilePrefab.transform.rotation, board.transform);
                 tileObject.name = $"Tile ({x}, {z})";
-                tileObject.tag = "Tile";
+                tileObject.tag = StageManager.tile;
+                tileObject.layer = LayerMask.NameToLayer(StageManager.tile);
 
                 Tile tile = tileObject.GetComponent<Tile>();
                 tiles[x, z] = tile;
@@ -89,7 +92,8 @@ public class StageManager : MonoBehaviour
 
             GameObject buildingObject = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), board.transform);
             buildingObject.name = $"Building ({x})";
-            buildingObject.tag = "Building";
+            buildingObject.tag = StageManager.building;
+            buildingObject.layer = LayerMask.NameToLayer(StageManager.building);
         }
     }
 

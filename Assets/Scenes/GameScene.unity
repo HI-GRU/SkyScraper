@@ -405,6 +405,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0362ea93862bf7545b04cbebe1d39613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dragSpeed: 20
+  rotationAngle: 90
+  buildingLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  tileLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!4 &1969435056
 Transform:
   m_ObjectHideFlags: 0
