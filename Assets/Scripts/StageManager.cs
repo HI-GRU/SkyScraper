@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class StageManager : MonoBehaviour
 {
+
+    public static StageManager Instance { get; private set; }
+
     [Header("GRU Game Asset Setting")]
     // [SerializeField] private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
     [SerializeField] private GameObject[] buildingPrefabs;
@@ -17,6 +20,9 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
+
+        if (Instance == null) Instance = this;
+
         LoadStageData();
         LoadBoard();
     }
@@ -103,5 +109,7 @@ public class StageManager : MonoBehaviour
         Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
     }
+
+    public GridSystem GetGridSystem() => gridSystem;
 
 }
