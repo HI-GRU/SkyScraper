@@ -41,13 +41,15 @@ public class TouchManager : MonoBehaviour
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
                 Vector3 newPosition = new Vector3(
-                    hitPoint.x - dragOffset.x,
+                    Mathf.Round(hitPoint.x - dragOffset.x),
                     selectedBuilding.transform.position.y,
-                    hitPoint.z - dragOffset.z
+                    Mathf.Round(hitPoint.z - dragOffset.z)
                 );
 
                 selectedBuilding.transform.position = newPosition;
             }
+
+
         }
         else if (Input.GetMouseButtonUp(0))
         {
