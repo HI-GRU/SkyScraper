@@ -1,19 +1,22 @@
+using System;
 using UnityEngine;
 
 public class TouchManager : MonoBehaviour
 {
-    [SerializeField] private LayerMask buildingLayer;
-    [SerializeField] private LayerMask tileLayer;
+    private LayerMask buildingLayer;
+    private LayerMask tileLayer;
+    private Camera mainCamera;
 
     private readonly Plane XZPlane = new Plane(Vector3.up, 0);
-    private Camera mainCamera;
     private GameObject selectedBuilding;
     private Vector3 dragOffset;
     private bool isDragging => selectedBuilding != null;
 
     private void Start()
     {
-        mainCamera = Camera.main;
+        mainCamera = GameManager.Instance.MainCamera;
+        buildingLayer = GameManager.Instance.BuildingLayer;
+        tileLayer = GameManager.Instance.TileLayer;
     }
 
     private void Update()
@@ -35,26 +38,30 @@ public class TouchManager : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            float distance;
 
-            if (XZPlane.Raycast(ray, out distance))
+            if (XZPlane.Raycast(ray, out float distance))
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
                 Vector3 newPosition = new Vector3(
-                    Mathf.Round(hitPoint.x - dragOffset.x),
+                    hitPoint.x - dragOffset.x,
                     selectedBuilding.transform.position.y,
-                    Mathf.Round(hitPoint.z - dragOffset.z)
+                    hitPoint.z - dragOffset.z
                 );
+
+                Cell cell = StageManager.Instance.GridSystem.GetCell(newPosition);
+
+                if (cell != null)
+                {
+                    newPosition.x = Mathf.Round(newPosition.x);
+                    newPosition.z = Mathf.Round(newPosition.z);
+                }
 
                 selectedBuilding.transform.position = newPosition;
             }
-
-
         }
         else if (Input.GetMouseButtonUp(0))
         {
             selectedBuilding = null;
-            Debug.Log("Drag Off !!!");
         }
     }
 
@@ -66,7 +73,12 @@ public class TouchManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingLayer))
         {
             selectedBuilding = hit.transform.gameObject;
-            dragOffset = hit.point - selectedBuilding.transform.position;
+
+            if (XZPlane.Raycast(ray, out float distance))
+            {
+                Vector3 hitPoint = ray.GetPoint(distance);
+                dragOffset = hitPoint - selectedBuilding.transform.position;
+            }
         }
     }
 }

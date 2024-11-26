@@ -18,16 +18,18 @@ public class GridSystem
                 grid[x, y] = new Cell(new Vector2(x, y));
     }
 
-    private bool isBound(Vector2 pos)
+    private bool isBound(Vector3 pos)
     {
-        return pos.x >= 0 && pos.x < size.x && pos.y >= 0 && pos.y <= size.y;
+        float x = Mathf.Round(pos.x);
+        float z = Mathf.Round(pos.z);
+        return x >= 0 && x < size.x && z >= 0 && z < size.y;
     }
 
-    public Cell GetCell(Vector2 pos)
+    public Cell GetCell(Vector3 pos)
     {
         if (!isBound(pos))
         {
-            Debug.Log("Invalid position: {pos}");
+            // Debug.Log($"Invalid position: {pos}");
             return null;
         }
 

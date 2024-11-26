@@ -5,23 +5,21 @@ public class StageManager : MonoBehaviour
 
     public static StageManager Instance { get; private set; }
 
-    [Header("GRU Game Asset Setting")]
-    // [SerializeField] private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
-    [SerializeField] private GameObject[] buildingPrefabs;
-    [SerializeField] private GameObject tilePrefab;
+    // private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
+    private GameObject[] buildingPrefabs;
+    private GameObject tilePrefab;
+
     private StageData stageData;
     private Stage currentStage;
-
     private GridSystem gridSystem;
     private GameObject boardObject;
-
-    private const string buildingTag = "Building";
-    private const string tileTag = "Tile";
 
     private void Awake()
     {
 
         if (Instance == null) Instance = this;
+        buildingPrefabs = GameManager.Instance.BuildingPrefabs;
+        tilePrefab = GameManager.Instance.TilePrefab;
 
         LoadStageData();
         LoadBoard();
@@ -75,7 +73,7 @@ public class StageManager : MonoBehaviour
                 Vector3 position = new Vector3(x, 0, y);
                 GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
                 tileObj.name = $"Tile_{x}_{y}";
-                tileObj.layer = LayerMask.NameToLayer(tileTag);
+                tileObj.layer = LayerMask.NameToLayer("Tile");
             }
         }
 
@@ -95,7 +93,7 @@ public class StageManager : MonoBehaviour
                 Vector3 position = new Vector3(-2f, 0f, i * 2f);
                 GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
-                buildingObj.layer = LayerMask.NameToLayer(buildingTag);
+                buildingObj.layer = LayerMask.NameToLayer("Building");
             }
         }
     }
@@ -110,6 +108,6 @@ public class StageManager : MonoBehaviour
         return null;
     }
 
-    public GridSystem GetGridSystem() => gridSystem;
+    public GridSystem GridSystem => gridSystem;
 
 }
