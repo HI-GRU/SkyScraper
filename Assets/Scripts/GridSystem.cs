@@ -33,6 +33,6 @@ public class GridSystem
             return null;
         }
 
-        return grid[(int)pos.x, (int)pos.y];
+        return grid[(int)pos.x, (int)pos.z];
     }
 }

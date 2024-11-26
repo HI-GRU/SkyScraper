@@ -1,37 +1,33 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(0)]
 public class StageManager : MonoBehaviour
 {
-
     public static StageManager Instance { get; private set; }
 
     // private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
+    private Dictionary<string, Vector3> originalBuildingPositions;
 
     private StageData stageData;
     private Stage currentStage;
     private GridSystem gridSystem;
     private GameObject boardObject;
 
+    public GridSystem GridSystem => gridSystem;
+    public Dictionary<string, Vector3> OriginalBuildingPositions => originalBuildingPositions;
+
     private void Awake()
     {
-
         if (Instance == null) Instance = this;
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
+        originalBuildingPositions = new Dictionary<string, Vector3>();
+        stageData = GameManager.Instance.StageData;
 
-        LoadStageData();
         LoadBoard();
-    }
-
-    private void LoadStageData()
-    {
-        stageData = Resources.Load<StageData>("StageData");
-        if (stageData == null) Debug.LogError("StageData not found!");
-
-        if (buildingPrefabs == null || buildingPrefabs.Length == 0)
-            Debug.LogError("Building prefabs not assigned!");
     }
 
     private void LoadBoard()
@@ -55,6 +51,7 @@ public class StageManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        originalBuildingPositions.Clear();
     }
 
     private Stage LoadStage(int level)
@@ -76,7 +73,6 @@ public class StageManager : MonoBehaviour
                 tileObj.layer = LayerMask.NameToLayer("Tile");
             }
         }
-
     }
 
     private void CreateBuildings()
@@ -94,6 +90,8 @@ public class StageManager : MonoBehaviour
                 GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
+
+                originalBuildingPositions[buildingObj.name] = buildingObj.transform.position;
             }
         }
     }
@@ -108,6 +106,8 @@ public class StageManager : MonoBehaviour
         return null;
     }
 
-    public GridSystem GridSystem => gridSystem;
-
+    public Vector3 GetOriginalPosition(string id)
+    {
+        return originalBuildingPositions[id];
+    }
 }

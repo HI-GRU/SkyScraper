@@ -15,19 +15,25 @@ public class GameManager : MonoBehaviour
     [Header("GRU Layer Settings")]
     [SerializeField] private LayerMask buildingLayer;
     [SerializeField] private LayerMask tileLayer;
-    private Camera mainCamera;
 
+    private Camera mainCamera;
+    private StageData stageData;
+
+    // getter
     public GameObject[] BuildingPrefabs => buildingPrefabs;
     public GameObject TilePrefab => tilePrefab;
 
     public LayerMask BuildingLayer => buildingLayer;
     public LayerMask TileLayer => tileLayer;
     public Camera MainCamera => mainCamera;
-
+    public StageData StageData => stageData;
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         mainCamera = Camera.main;
+        stageData = Resources.Load<StageData>("StageData");
+        if (stageData == null) Debug.LogError("StageData not found!");
+        if (buildingPrefabs == null || buildingPrefabs.Length == 0) Debug.LogError("Building prefabs not assigned!");
     }
 }

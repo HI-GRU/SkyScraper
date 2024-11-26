@@ -1,22 +1,26 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+[DefaultExecutionOrder(1)]
 public class TouchManager : MonoBehaviour
 {
     private LayerMask buildingLayer;
     private LayerMask tileLayer;
     private Camera mainCamera;
+    private GridSystem gridSystem;
 
     private readonly Plane XZPlane = new Plane(Vector3.up, 0);
     private GameObject selectedBuilding;
     private Vector3 dragOffset;
     private bool isDragging => selectedBuilding != null;
 
-    private void Start()
+    private void Awake()
     {
         mainCamera = GameManager.Instance.MainCamera;
         buildingLayer = GameManager.Instance.BuildingLayer;
         tileLayer = GameManager.Instance.TileLayer;
+        gridSystem = StageManager.Instance.GridSystem;
     }
 
     private void Update()
@@ -35,7 +39,7 @@ public class TouchManager : MonoBehaviour
 
     private void HandleDragging()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)) // 드래그 중인 상태
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -48,7 +52,7 @@ public class TouchManager : MonoBehaviour
                     hitPoint.z - dragOffset.z
                 );
 
-                Cell cell = StageManager.Instance.GridSystem.GetCell(newPosition);
+                Cell cell = gridSystem.GetCell(newPosition);
 
                 if (cell != null)
                 {
@@ -59,8 +63,10 @@ public class TouchManager : MonoBehaviour
                 selectedBuilding.transform.position = newPosition;
             }
         }
-        else if (Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0)) // 드래그 종료
         {
+
+            Vector3 originalPosition = StageManager.Instance.GetOriginalPosition(selectedBuilding.name);
             selectedBuilding = null;
         }
     }
