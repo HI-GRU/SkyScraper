@@ -15,4 +15,6 @@ public class Building
     {
         return shape[x][y][z];
     }
+
+    public bool[][][] Shape => shape;
 }

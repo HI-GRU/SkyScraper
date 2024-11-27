@@ -9,15 +9,12 @@ public class StageManager : MonoBehaviour
     // private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
-    private Dictionary<string, Vector3> originalBuildingPositions;
+    public Dictionary<string, Vector3> originalBuildingPositions { get; private set; }
 
     private StageData stageData;
     private Stage currentStage;
-    private GridSystem gridSystem;
+    public GridSystem gridSystem { get; private set; }
     private GameObject boardObject;
-
-    public GridSystem GridSystem => gridSystem;
-    public Dictionary<string, Vector3> OriginalBuildingPositions => originalBuildingPositions;
 
     private void Awake()
     {
@@ -25,7 +22,7 @@ public class StageManager : MonoBehaviour
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
         originalBuildingPositions = new Dictionary<string, Vector3>();
-        stageData = GameManager.Instance.StageData;
+        stageData = GameManager.Instance.stageData;
 
         LoadBoard();
     }

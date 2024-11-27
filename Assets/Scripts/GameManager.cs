@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LayerMask buildingLayer;
     [SerializeField] private LayerMask tileLayer;
 
-    private Camera mainCamera;
-    private StageData stageData;
+    public Camera mainCamera { get; private set; }
+    public StageData stageData { get; private set; }
 
     // getter
     public GameObject[] BuildingPrefabs => buildingPrefabs;
@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour
 
     public LayerMask BuildingLayer => buildingLayer;
     public LayerMask TileLayer => tileLayer;
-    public Camera MainCamera => mainCamera;
-    public StageData StageData => stageData;
 
     private void Awake()
     {

@@ -17,10 +17,10 @@ public class TouchManager : MonoBehaviour
 
     private void Awake()
     {
-        mainCamera = GameManager.Instance.MainCamera;
+        mainCamera = GameManager.Instance.mainCamera;
         buildingLayer = GameManager.Instance.BuildingLayer;
         tileLayer = GameManager.Instance.TileLayer;
-        gridSystem = StageManager.Instance.GridSystem;
+        gridSystem = StageManager.Instance.gridSystem;
     }
 
     private void Update()
