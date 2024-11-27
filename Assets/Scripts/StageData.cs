@@ -10,29 +10,23 @@ public class StageData : ScriptableObject
            new Building[]
            {
                new Building(
-                   new bool[1][][] {
-                       new bool[3][] {
-                           new bool[] { true },
-                           new bool[] { true },
-                           new bool[] { true }
-                       }
+                   new bool[1,3,1] {
+                    {{true},
+                    {true},
+                    {true}}
                    },
                    "blue_1.3.1"
                ),
                new Building(
-                   new bool[1][][] {
-                       new bool[2][] {
-                           new bool[] { true },
-                           new bool[] { true }
-                       }
+                   new bool[1,2,1] {
+                    {{true},
+                    {true}}
                    },
                    "green_1.2.1"
                ),
                new Building(
-                   new bool[1][][] {
-                       new bool[1][] {
-                           new bool[] { true }
-                       }
+                   new bool[1,1,1] {
+                    {{true}}
                    },
                    "orange_1.1.1"
                )

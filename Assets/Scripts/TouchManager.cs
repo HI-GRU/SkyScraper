@@ -52,9 +52,7 @@ public class TouchManager : MonoBehaviour
                     hitPoint.z - dragOffset.z
                 );
 
-                Cell cell = gridSystem.GetCell(newPosition);
-
-                if (cell != null)
+                if (gridSystem.isBound(newPosition.x, newPosition.z))
                 {
                     newPosition.x = Mathf.Round(newPosition.x);
                     newPosition.z = Mathf.Round(newPosition.z);
@@ -65,8 +63,17 @@ public class TouchManager : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(0)) // 드래그 종료
         {
+            Building building = StageManager.Instance.buildingInfo[selectedBuilding.name];
 
-            Vector3 originalPosition = StageManager.Instance.GetOriginalPosition(selectedBuilding.name);
+            if (!gridSystem.CanPlaceBuilding(selectedBuilding.transform.position, building))
+            {
+                selectedBuilding.transform.position = building.currentData.originalPosition;
+            }
+            else
+            {
+                // TODO: 빌딩을 놓을 때 grid system에 정보 입력
+            }
+
             selectedBuilding = null;
         }
     }

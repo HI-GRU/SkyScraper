@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
     // private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
-    public Dictionary<string, Vector3> originalBuildingPositions { get; private set; }
+    public Dictionary<string, Building> buildingInfo { get; private set; }
 
     private StageData stageData;
     private Stage currentStage;
@@ -21,39 +21,51 @@ public class StageManager : MonoBehaviour
         if (Instance == null) Instance = this;
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
-        originalBuildingPositions = new Dictionary<string, Vector3>();
+        buildingInfo = new Dictionary<string, Building>();
         stageData = GameManager.Instance.stageData;
 
-        LoadBoard();
-    }
-
-    private void LoadBoard()
-    {
-        boardObject = new GameObject("Board");
-        boardObject.transform.parent = transform;
+        LoadBoard(); // TODO: GameManager에서 사용자가 스테이지 진입 시 호출하도록 수정
         CreateStage(1);
     }
 
-    private void CreateStage(int level)
+    public void LoadBoard()
+    {
+        boardObject = new GameObject("Board");
+        boardObject.transform.parent = transform;
+    }
+
+    public void CreateStage(int level)
     {
         ClearStage();
-        currentStage = LoadStage(level);
+        LoadStage(level);
         CreateGrid();
         CreateBuildings();
     }
 
     private void ClearStage()
     {
-        foreach (Transform child in boardObject.transform)
+        if (boardObject != null)
         {
-            Destroy(child.gameObject);
+            foreach (Transform child in boardObject.transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
-        originalBuildingPositions.Clear();
+
+        if (currentStage != null)
+        {
+            foreach (Building building in currentStage.buildings)
+            {
+                building.ClearStageInfo();
+            }
+        }
+
+        buildingInfo.Clear();
     }
 
-    private Stage LoadStage(int level)
+    private void LoadStage(int level)
     {
-        return stageData.GetStage(level);
+        currentStage = stageData.GetStage(level);
     }
 
     private void CreateGrid()
@@ -79,7 +91,7 @@ public class StageManager : MonoBehaviour
         for (int i = 0; i < currentStage.buildings.Length; i++)
         {
             Building building = currentStage.buildings[i];
-            GameObject buildingPrefab = GetBuildingPrefab(building.BuildingId);
+            GameObject buildingPrefab = GetBuildingPrefab(building.buildingId);
 
             if (buildingPrefab != null)
             {
@@ -88,7 +100,8 @@ public class StageManager : MonoBehaviour
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
 
-                originalBuildingPositions[buildingObj.name] = buildingObj.transform.position;
+                building.SetStageInfo(buildingObj.name, buildingObj.transform.position);
+                buildingInfo[buildingObj.name] = building;
             }
         }
     }
@@ -101,10 +114,5 @@ public class StageManager : MonoBehaviour
         }
         Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
-    }
-
-    public Vector3 GetOriginalPosition(string id)
-    {
-        return originalBuildingPositions[id];
     }
 }
