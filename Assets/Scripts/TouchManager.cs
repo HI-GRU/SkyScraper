@@ -11,9 +11,11 @@ public class TouchManager : MonoBehaviour
     private GridSystem gridSystem;
 
     private readonly Plane XZPlane = new Plane(Vector3.up, 0);
-    private GameObject selectedBuilding;
+    private GameObject selectedBuildingObj;
+    Building selectedBuilding => StageManager.Instance.buildingInfo[selectedBuildingObj.name];
+
     private Vector3 dragOffset;
-    private bool isDragging => selectedBuilding != null;
+    private bool isDragging => selectedBuildingObj != null;
 
     private void Awake()
     {
@@ -48,7 +50,7 @@ public class TouchManager : MonoBehaviour
                 Vector3 hitPoint = ray.GetPoint(distance);
                 Vector3 newPosition = new Vector3(
                     hitPoint.x - dragOffset.x,
-                    selectedBuilding.transform.position.y,
+                    selectedBuildingObj.transform.position.y,
                     hitPoint.z - dragOffset.z
                 );
 
@@ -58,23 +60,17 @@ public class TouchManager : MonoBehaviour
                     newPosition.z = Mathf.Round(newPosition.z);
                 }
 
-                selectedBuilding.transform.position = newPosition;
+                selectedBuildingObj.transform.position = newPosition;
             }
         }
         else if (Input.GetMouseButtonUp(0)) // 드래그 종료
         {
-            Building building = StageManager.Instance.buildingInfo[selectedBuilding.name];
-
-            if (!gridSystem.CanPlaceBuilding(selectedBuilding.transform.position, building))
+            if (!gridSystem.PlaceBuilding(selectedBuildingObj.transform.position, selectedBuilding))
             {
-                selectedBuilding.transform.position = building.currentData.originalPosition;
-            }
-            else
-            {
-                // TODO: 빌딩을 놓을 때 grid system에 정보 입력
+                selectedBuildingObj.transform.position = selectedBuilding.currentData.originalPosition;
             }
 
-            selectedBuilding = null;
+            selectedBuildingObj = null;
         }
     }
 
@@ -85,12 +81,13 @@ public class TouchManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingLayer))
         {
-            selectedBuilding = hit.transform.gameObject;
+            selectedBuildingObj = hit.transform.gameObject;
+            if (selectedBuilding.currentData.isPlaced) gridSystem.RemoveBuilding(selectedBuilding);
 
             if (XZPlane.Raycast(ray, out float distance))
             {
                 Vector3 hitPoint = ray.GetPoint(distance);
-                dragOffset = hitPoint - selectedBuilding.transform.position;
+                dragOffset = hitPoint - selectedBuildingObj.transform.position;
             }
         }
     }

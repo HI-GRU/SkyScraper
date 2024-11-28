@@ -3,10 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageData", menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
+    private static float maxHeight = 100F;
     private Stage[] stages = new Stage[]
    {
        new Stage(
-           new Vector2(1, 3),
+           new Vector3(1, maxHeight, 3),
            new Building[]
            {
                new Building(

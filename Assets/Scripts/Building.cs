@@ -20,11 +20,13 @@ public class Building
     {
         public string stageBuildingId { get; }
         public Vector3 originalPosition { get; }
+        public bool isPlaced { get; set; }
 
         public RuntimeData(string stageBuildingId, Vector3 originalPosition)
         {
             this.stageBuildingId = stageBuildingId;
             this.originalPosition = originalPosition;
+            this.isPlaced = false;
         }
     }
     public RuntimeData currentData { get; private set; }

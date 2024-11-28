@@ -74,11 +74,11 @@ public class StageManager : MonoBehaviour
 
         for (int x = 0; x < gridSystem.size.x; x++)
         {
-            for (int y = 0; y < gridSystem.size.y; y++)
+            for (int z = 0; z < gridSystem.size.z; z++)
             {
-                Vector3 position = new Vector3(x, 0, y);
+                Vector3 position = new Vector3(x, 0, z);
                 GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
-                tileObj.name = $"Tile_{x}_{y}";
+                tileObj.name = $"Tile_{x}_{z}";
                 tileObj.layer = LayerMask.NameToLayer("Tile");
             }
         }
