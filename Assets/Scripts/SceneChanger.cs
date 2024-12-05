@@ -17,6 +17,7 @@ public class SceneChanger : MonoBehaviour
 
     private void Start()
     {
+        DontDestroyOnLoad(gameObject);
         stageData = GameManager.Instance.stageData;
         if (stageData == null)
         {
@@ -47,6 +48,7 @@ public class SceneChanger : MonoBehaviour
 
         // 뒤로가기 버튼 생성
         GameObject backButton = Instantiate(buttonPrefab, stagePanel.transform);
+        backButton.name = "BackButton";
         RectTransform backButtonRect = backButton.GetComponent<RectTransform>();
         backButtonRect.anchorMin = new Vector2(0, 1);
         backButtonRect.anchorMax = new Vector2(0, 1);
