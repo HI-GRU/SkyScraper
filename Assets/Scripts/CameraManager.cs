@@ -29,5 +29,6 @@ public class CameraManager : MonoBehaviour
         );
         mainCamera.transform.rotation = Quaternion.Euler(30F, -45F, 0F);
         mainCamera.transform.position = new Vector3(maxLen, maxLen, -maxLen) * 2 + centerPosition;
+        mainCamera.orthographicSize = 5F;
     }
 }
