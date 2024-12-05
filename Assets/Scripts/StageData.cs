@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
-    private static float maxHeight = 100F;
+    private static float maxHeight = 50F;
     private Stage[] stages = new Stage[]
    {
        new Stage(
@@ -31,7 +32,11 @@ public class StageData : ScriptableObject
                    },
                    "orange_1.1.1"
                )
-           }
+           },
+           new Dictionary<Direction, int> {
+            { Direction.North, 1 },
+            { Direction.South, 3 }
+            }
        )
    };
 
@@ -43,5 +48,10 @@ public class StageData : ScriptableObject
             return null;
         }
         return stages[level - 1];
+    }
+
+    public int GetLength()
+    {
+        return stages.Length;
     }
 }
