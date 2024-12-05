@@ -8,7 +8,7 @@ public class StageData : ScriptableObject
     private Stage[] stages = new Stage[]
    {
        new Stage(
-           new Vector3(1, maxHeight, 3),
+           new Vector3(1, 3, 3),
            new Building[]
            {
                new Building(
@@ -17,7 +17,7 @@ public class StageData : ScriptableObject
                     {true},
                     {true}}
                    },
-                   "blue_1.3.1"
+                   "pink_1.3.1"
                ),
                new Building(
                    new bool[1,2,1] {
@@ -30,7 +30,7 @@ public class StageData : ScriptableObject
                    new bool[1,1,1] {
                     {{true}}
                    },
-                   "orange_1.1.1"
+                   "blue_1.1.1"
                )
            },
            new Dictionary<Direction, int> {
