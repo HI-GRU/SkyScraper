@@ -20,8 +20,9 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    public async void LoadGameScene()
+    public async void LoadGameScene(int level)
     {
+        GameManager.Instance.SetLevel(level);
         asyncLoad = SceneManager.LoadSceneAsync("GameScene");
 
         while (!asyncLoad.isDone)

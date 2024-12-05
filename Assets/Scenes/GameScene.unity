@@ -190,61 +190,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &489805746
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 489805748}
-  - component: {fileID: 489805747}
-  m_Layer: 0
-  m_Name: Game Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &489805747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489805746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce705c863b25a64ebae2b8839e0acbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingPrefabs:
-  - {fileID: 919132149155446097, guid: 2e2ca79ab0ad608438acfa7c18ce913b, type: 3}
-  - {fileID: 919132149155446097, guid: 29cda18015b53c14f89d1aa959dac034, type: 3}
-  - {fileID: 919132149155446097, guid: 51b198607c3baf94586a6bff64d13801, type: 3}
-  tilePrefab: {fileID: 919132149155446097, guid: e76b7f02f613e8d4c807901ee768f0dd, type: 3}
-  buildingLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!4 &489805748
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489805746}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3487804, y: -0.27383727, z: 1.796906}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &610928157
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,7 +804,6 @@ SceneRoots:
   - {fileID: 1803749961}
   - {fileID: 187268823}
   - {fileID: 2045126251}
-  - {fileID: 489805748}
   - {fileID: 2142199080}
   - {fileID: 1969435056}
   - {fileID: 1768977303}

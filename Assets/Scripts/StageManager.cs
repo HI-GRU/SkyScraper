@@ -24,8 +24,8 @@ public class StageManager : MonoBehaviour
         buildingInfo = new Dictionary<string, Building>();
         stageData = GameManager.Instance.stageData;
 
-        LoadBoard(); // TODO: GameManager에서 사용자가 스테이지 진입 시 호출하도록 수정
-        CreateStage(1);
+        LoadBoard();
+        CreateStage(GameManager.Instance.level);
     }
 
     public void LoadBoard()
