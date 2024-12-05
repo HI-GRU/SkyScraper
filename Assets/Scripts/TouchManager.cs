@@ -19,10 +19,10 @@ public class TouchManager : MonoBehaviour
 
     private void Awake()
     {
-        mainCamera = Camera.main;
         buildingLayer = GameManager.Instance.BuildingLayer;
         tileLayer = GameManager.Instance.TileLayer;
         gridSystem = StageManager.Instance.gridSystem;
+        mainCamera = CameraManager.Instance.mainCamera;
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class TouchManager : MonoBehaviour
 
     private void HandleDragging()
     {
-        if (Input.GetMouseButton(0)) // 드래그 중인 상태
+        if (Input.GetMouseButton(0)) // 드래그 진행
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 

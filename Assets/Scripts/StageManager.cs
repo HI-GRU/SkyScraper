@@ -15,6 +15,7 @@ public class StageManager : MonoBehaviour
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
     private GameObject boardObject;
+    public Camera mainCamera { get; private set; }
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class StageManager : MonoBehaviour
         tilePrefab = GameManager.Instance.TilePrefab;
         buildingInfo = new Dictionary<string, Building>();
         stageData = GameManager.Instance.stageData;
+        mainCamera = CameraManager.Instance.mainCamera;
 
         LoadBoard();
         CreateStage(GameManager.Instance.level);
@@ -40,6 +42,7 @@ public class StageManager : MonoBehaviour
         LoadStage(level);
         CreateGrid();
         CreateBuildings();
+        SetupCamera();
     }
 
     private void ClearStage()
@@ -114,5 +117,10 @@ public class StageManager : MonoBehaviour
         }
         Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
+    }
+
+    private void SetupCamera()
+    {
+        mainCamera.transform.rotation = Quaternion.Euler(45F, 45F, 0F);
     }
 }
