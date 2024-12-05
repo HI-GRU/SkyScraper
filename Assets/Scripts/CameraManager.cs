@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [DefaultExecutionOrder(-1)]
@@ -19,7 +21,13 @@ public class CameraManager : MonoBehaviour
 
     private void SetMainView()
     {
-        mainCamera.transform.rotation = Quaternion.Euler(45f, -45f, 0f);
-
+        float maxLen = Math.Max(currentStage.size.x, Math.Max(currentStage.size.y, currentStage.size.z));
+        Vector3 centerPosition = new Vector3(
+            currentStage.size.x / 2F,
+            0F,
+            currentStage.size.z / 2F
+        );
+        mainCamera.transform.rotation = Quaternion.Euler(30F, -45F, 0F);
+        mainCamera.transform.position = new Vector3(maxLen, maxLen, -maxLen) * 2 + centerPosition;
     }
 }

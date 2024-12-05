@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StageData", menuName = "Game/Stage Data")]
 public class StageData : ScriptableObject
 {
-    private static float maxHeight = 50F;
     private Stage[] stages = new Stage[]
    {
        new Stage(
@@ -33,11 +32,37 @@ public class StageData : ScriptableObject
                    "blue_1.1.1"
                )
            },
-           new Dictionary<Direction, int> {
+           new Dictionary<Direction, int>
+           {
             { Direction.North, 1 },
             { Direction.South, 3 }
             }
-       )
+       ) ,
+        new Stage(
+           new Vector3(1, 4, 2),
+           new Building[]
+           {
+               new Building(
+                   new bool[1,3,1] {
+                    {{true},
+                    {true},
+                    {true}}
+                   },
+                   "pink_1.3.1"
+               ),
+               new Building(
+                   new bool[1,4,1] {
+                    {{true}, {true}, {true}, {true}}
+                   },
+                   "building_1.4.1"
+               )
+           },
+           new Dictionary<Direction, int>
+           {
+            { Direction.North, 1 },
+            { Direction.South, 2 }
+            }
+       ),
    };
 
     public Stage GetStage(int level)
