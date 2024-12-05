@@ -13,17 +13,12 @@ public class SceneChanger : MonoBehaviour
     [SerializeField] private GameObject stagePanel;
     [SerializeField] private GameObject buttonPrefab;
     AsyncOperation asyncLoad;
-    private StageData stageData;
+    private int stageLength;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        stageData = GameManager.Instance.stageData;
-        if (stageData == null)
-        {
-            Debug.Log("Empty stage data");
-            return;
-        }
+        stageLength = GameManager.Instance.stageData.GetLength();
 
         // 스테이지 버튼들을 담을 새로운 패널 생성
         GameObject stageButtonsPanel = new GameObject("StageButtonsPanel");
@@ -64,7 +59,7 @@ public class SceneChanger : MonoBehaviour
 
     private void CreateStageButtons(Transform parent)
     {
-        for (int i = 1; i <= stageData.GetLength(); i++)
+        for (int i = 1; i <= stageLength; i++)
         {
             GameObject buttonObj = Instantiate(buttonPrefab, parent);
             Button button = buttonObj.GetComponent<Button>();
