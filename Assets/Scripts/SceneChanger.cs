@@ -24,21 +24,47 @@ public class SceneChanger : MonoBehaviour
             return;
         }
 
-        GridLayoutGroup layoutGroup = stagePanel.AddComponent<GridLayoutGroup>();
+        // 스테이지 버튼들을 담을 새로운 패널 생성
+        GameObject stageButtonsPanel = new GameObject("StageButtonsPanel");
+        stageButtonsPanel.transform.SetParent(stagePanel.transform, false);
+
+        // 스테이지 버튼 패널의 RectTransform 설정
+        RectTransform stageButtonsRect = stageButtonsPanel.AddComponent<RectTransform>();
+        stageButtonsRect.anchorMin = new Vector2(0.2f, 0.2f);
+        stageButtonsRect.anchorMax = new Vector2(0.8f, 0.8f);
+        stageButtonsRect.sizeDelta = Vector2.zero;
+
+        // 스테이지 버튼들의 그리드 레이아웃 설정
+        GridLayoutGroup layoutGroup = stageButtonsPanel.AddComponent<GridLayoutGroup>();
         layoutGroup.cellSize = new Vector2(200, 100);
         layoutGroup.spacing = new Vector2(20, 20);
         layoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;
         layoutGroup.startAxis = GridLayoutGroup.Axis.Horizontal;
         layoutGroup.childAlignment = TextAnchor.MiddleCenter;
 
-        CreateStageButton();
+        // 스테이지 버튼 생성
+        CreateStageButtons(stageButtonsPanel.transform);
+
+        // 뒤로가기 버튼 생성
+        GameObject backButton = Instantiate(buttonPrefab, stagePanel.transform);
+        RectTransform backButtonRect = backButton.GetComponent<RectTransform>();
+        backButtonRect.anchorMin = new Vector2(0, 1);
+        backButtonRect.anchorMax = new Vector2(0, 1);
+        backButtonRect.pivot = new Vector2(0, 1);
+        backButtonRect.anchoredPosition = new Vector2(50, -50);
+
+        // 뒤로가기 버튼 설정
+        Button backButtonComp = backButton.GetComponent<Button>();
+        TextMeshProUGUI backButtonText = backButton.GetComponentInChildren<TextMeshProUGUI>();
+        backButtonText.text = "Back";
+        backButtonComp.onClick.AddListener(ShowMainPanel);
     }
 
-    private void CreateStageButton()
+    private void CreateStageButtons(Transform parent)
     {
         for (int i = 1; i <= stageData.GetLength(); i++)
         {
-            GameObject buttonObj = Instantiate(buttonPrefab, stagePanel.transform);
+            GameObject buttonObj = Instantiate(buttonPrefab, parent);
             Button button = buttonObj.GetComponent<Button>();
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
 
