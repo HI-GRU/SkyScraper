@@ -10,8 +10,6 @@ public class StageManager : MonoBehaviour
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
     public Dictionary<string, Building> buildingInfo { get; private set; }
-
-    private StageData stageData;
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
     private GameObject boardObject;
@@ -23,11 +21,10 @@ public class StageManager : MonoBehaviour
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
         buildingInfo = new Dictionary<string, Building>();
-        stageData = GameManager.Instance.stageData;
         mainCamera = CameraManager.Instance.mainCamera;
 
         LoadBoard();
-        CreateStage(GameManager.Instance.level);
+        CreateStage();
     }
 
     public void LoadBoard()
@@ -36,13 +33,12 @@ public class StageManager : MonoBehaviour
         boardObject.transform.parent = transform;
     }
 
-    public void CreateStage(int level)
+    public void CreateStage()
     {
         ClearStage();
-        LoadStage(level);
+        LoadStage();
         CreateGrid();
         CreateBuildings();
-        SetupCamera();
     }
 
     private void ClearStage()
@@ -66,9 +62,9 @@ public class StageManager : MonoBehaviour
         buildingInfo.Clear();
     }
 
-    private void LoadStage(int level)
+    private void LoadStage()
     {
-        currentStage = stageData.GetStage(level);
+        currentStage = GameManager.Instance.currentStage;
     }
 
     private void CreateGrid()
@@ -80,7 +76,7 @@ public class StageManager : MonoBehaviour
             for (int z = 0; z < gridSystem.size.z; z++)
             {
                 Vector3 position = new Vector3(x, 0, z);
-                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
+                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 tileObj.name = $"Tile_{x}_{z}";
                 tileObj.layer = LayerMask.NameToLayer("Tile");
             }
@@ -103,6 +99,10 @@ public class StageManager : MonoBehaviour
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
 
+                // Collider 설정
+                MeshCollider meshCollider = buildingObj.AddComponent<MeshCollider>();
+                meshCollider.convex = true;
+
                 building.SetStageInfo(buildingObj.name, buildingObj.transform.position);
                 buildingInfo[buildingObj.name] = building;
             }
@@ -117,10 +117,5 @@ public class StageManager : MonoBehaviour
         }
         Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
-    }
-
-    private void SetupCamera()
-    {
-        mainCamera.transform.rotation = Quaternion.Euler(45F, 45F, 0F);
     }
 }

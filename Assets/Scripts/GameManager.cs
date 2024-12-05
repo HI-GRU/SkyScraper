@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LayerMask tileLayer;
 
     public StageData stageData { get; private set; }
+    public Stage currentStage { get; private set; }
 
     public GameObject[] BuildingPrefabs => buildingPrefabs;
     public GameObject TilePrefab => tilePrefab;
@@ -39,5 +40,6 @@ public class GameManager : MonoBehaviour
     public void SetLevel(int level)
     {
         this.level = level;
+        currentStage = stageData.GetStage(level);
     }
 }
