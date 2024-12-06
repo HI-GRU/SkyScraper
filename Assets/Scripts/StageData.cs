@@ -16,7 +16,7 @@ public class StageData : ScriptableObject
                     {true},
                     {true}}
                    },
-                   "pink_1.3.1"
+                   "orange_1.3.1"
                ),
                new Building(
                    new bool[1,2,1] {
@@ -48,7 +48,7 @@ public class StageData : ScriptableObject
                     {true},
                     {true}}
                    },
-                   "pink_1.3.1"
+                   "orange_1.3.1"
                ),
                new Building(
                    new bool[1,4,1] {
