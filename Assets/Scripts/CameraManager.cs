@@ -14,7 +14,7 @@ public class CameraManager : MonoBehaviour
     private Vector3 center;
     private Vector3 cameraPosition => getCameraPos();
     private const float angleX = 30F;
-    private float angleY = -45F;
+    public float angleY = -45F;
     private float radius => Math.Max(currentStage.size.x, Math.Max(currentStage.size.y, currentStage.size.z)) * 2F;
 
     private void Awake()
