@@ -15,7 +15,7 @@ public class CameraManager : MonoBehaviour
     private Vector3 cameraPosition => getCameraPos();
     private const float angleX = 30F;
     public float angleY = -45F;
-    private float radius => Math.Max(currentStage.size.x, Math.Max(currentStage.size.y, currentStage.size.z)) * 2F;
+    private float radius => Math.Max(currentStage.size.x, Math.Max(currentStage.size.y, currentStage.size.z)) * 10F;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
         mainCamera = Camera.main;
         currentStage = GameManager.Instance.currentStage;
         center = new Vector3(currentStage.size.x / 2F, 0F, currentStage.size.z / 2F);
-        mainCamera.orthographicSize = radius;
+        mainCamera.orthographicSize = radius / 5F;
     }
 
     private void Update()
