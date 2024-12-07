@@ -12,16 +12,13 @@ public class StageData : ScriptableObject
            {
                new Building(
                    new bool[1,3,1] {
-                    {{true},
-                    {true},
-                    {true}}
+                    {{true}, {true}, {true}}
                    },
-                   "orange_1.3.1"
+                   "yellow_1.3.1"
                ),
                new Building(
                    new bool[1,2,1] {
-                    {{true},
-                    {true}}
+                    {{true}, {true}}
                    },
                    "green_1.2.1"
                ),
@@ -44,17 +41,15 @@ public class StageData : ScriptableObject
            {
                new Building(
                    new bool[1,3,1] {
-                    {{true},
-                    {true},
-                    {true}}
+                    {{true}, {true}, {true}}
                    },
-                   "orange_1.3.1"
+                   "yellow_1.3.1"
                ),
                new Building(
-                   new bool[1,4,1] {
-                    {{true}, {true}, {true}, {true}}
+                   new bool[2,1,1] {
+                    {{true}}, {{true}}
                    },
-                   "building_1.4.1"
+                   "s_blue_2.1.1"
                )
            },
            new Dictionary<Direction, int>
