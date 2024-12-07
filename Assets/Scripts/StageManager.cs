@@ -76,7 +76,7 @@ public class StageManager : MonoBehaviour
             for (int z = 0; z < gridSystem.size.z; z++)
             {
                 Vector3 position = new Vector3(x, 0, z);
-                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
+                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
                 tileObj.name = $"Tile_{x}_{z}";
                 tileObj.layer = LayerMask.NameToLayer("Tile");
             }
@@ -95,7 +95,8 @@ public class StageManager : MonoBehaviour
             if (buildingPrefab != null)
             {
                 Vector3 position = new Vector3(0F, 0F, i * 2F);
-                GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
+                GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.identity, boardObject.transform);
+                // GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
 
