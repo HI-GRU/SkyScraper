@@ -853,11 +853,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingPrefabs:
   - {fileID: 919132149155446097, guid: 2615585cc0b7f01449211ecb7466289c, type: 3}
-  - {fileID: 919132149155446097, guid: 29cda18015b53c14f89d1aa959dac034, type: 3}
-  - {fileID: 919132149155446097, guid: 4f321b96062b6394e98cc6c7ce696242, type: 3}
   - {fileID: 919132149155446097, guid: b6cb27951f2907349a2997511a4632f0, type: 3}
+  - {fileID: 919132149155446097, guid: 29cda18015b53c14f89d1aa959dac034, type: 3}
+  - {fileID: 919132149155446097, guid: 8f62c49d155341c4f801e78ace16e7a5, type: 3}
+  - {fileID: 919132149155446097, guid: 072e1e862b1936c418e35c60ca8a08f3, type: 3}
+  - {fileID: 919132149155446097, guid: 87d26c2a7dbf3d64e93ef8cafbcadce4, type: 3}
   tilePrefab: {fileID: 919132149155446097, guid: e76b7f02f613e8d4c807901ee768f0dd, type: 3}
-  buildingButtonPrefab: {fileID: 1582699667325322137, guid: 279c086c9b3d72c4aab02cc963e0c8f0, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64
