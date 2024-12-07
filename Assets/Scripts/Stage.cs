@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,18 @@ public class Stage
         this.size = size;
         this.buildings = buildings;
         this.clearCondition = clearCondition;
+
+        sortBuildings();
+    }
+
+    public void sortBuildings()
+    {
+        Array.Sort(buildings, (a, b) =>
+        {
+            int heightA = a.shape.GetLength(1);
+            int heightB = b.shape.GetLength(1);
+            return b.shape.GetLength(1) - a.shape.GetLength(1);
+        });
     }
 }
 
