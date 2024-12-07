@@ -20,20 +20,22 @@ public class Building
     {
         public string stageBuildingId { get; }
         public Vector3 originalPosition { get; }
+        public int buttonNumber { get; }
         public bool isPlaced { get; set; }
 
-        public RuntimeData(string stageBuildingId, Vector3 originalPosition)
+        public RuntimeData(string stageBuildingId, Vector3 originalPosition, int buttonNumber)
         {
             this.stageBuildingId = stageBuildingId;
             this.originalPosition = originalPosition;
+            this.buttonNumber = buttonNumber;
             this.isPlaced = false;
         }
     }
     public RuntimeData currentData { get; private set; }
 
-    public void SetStageInfo(string stageBuildingId, Vector3 originalPosition)
+    public void SetStageInfo(string stageBuildingId, Vector3 originalPosition, int buttonNumber)
     {
-        currentData = new RuntimeData(stageBuildingId, originalPosition);
+        currentData = new RuntimeData(stageBuildingId, originalPosition, buttonNumber);
     }
 
     public void ClearStageInfo()

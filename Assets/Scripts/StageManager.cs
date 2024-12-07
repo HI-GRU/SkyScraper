@@ -6,9 +6,10 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
 
-    // private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
+    [SerializeField] private RectTransform buttonPanel;
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
+    private GameObject buildingButtonPrefab;
     public Dictionary<string, Building> buildingInfo { get; private set; }
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
@@ -20,6 +21,7 @@ public class StageManager : MonoBehaviour
         if (Instance == null) Instance = this;
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
+        buildingButtonPrefab = GameManager.Instance.BuildingButtonPrefab;
         buildingInfo = new Dictionary<string, Building>();
         mainCamera = CameraManager.Instance.mainCamera;
 
@@ -50,7 +52,6 @@ public class StageManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
-
         if (currentStage != null)
         {
             foreach (Building building in currentStage.buildings)
@@ -58,7 +59,6 @@ public class StageManager : MonoBehaviour
                 building.ClearStageInfo();
             }
         }
-
         buildingInfo.Clear();
     }
 
@@ -94,7 +94,7 @@ public class StageManager : MonoBehaviour
 
             if (buildingPrefab != null)
             {
-                Vector3 position = new Vector3(-2f, 0f, i * 2f);
+                Vector3 position = new Vector3(0F, 0F, i * 2F);
                 GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
@@ -103,8 +103,14 @@ public class StageManager : MonoBehaviour
                 MeshCollider meshCollider = buildingObj.AddComponent<MeshCollider>();
                 meshCollider.convex = true;
 
-                building.SetStageInfo(buildingObj.name, buildingObj.transform.position);
+                // 현재 스테이지 Runtime Data 설정
+                building.SetStageInfo(buildingObj.name, buildingObj.transform.position, i);
                 buildingInfo[buildingObj.name] = building;
+
+                buildingObj.SetActive(false);
+
+                // building button 생성
+                GameObject buttonObj = Instantiate(buildingButtonPrefab, buttonPanel);
             }
         }
     }
