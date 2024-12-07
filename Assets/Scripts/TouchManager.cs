@@ -5,13 +5,15 @@ using UnityEngine;
 [DefaultExecutionOrder(1)]
 public class TouchManager : MonoBehaviour
 {
+    public static TouchManager Instance { get; private set; }
+
     private LayerMask buildingLayer;
     private LayerMask tileLayer;
     private Camera mainCamera;
     private GridSystem gridSystem;
 
     private readonly Plane XZPlane = new Plane(Vector3.up, 0);
-    private GameObject selectedBuildingObj;
+    public GameObject selectedBuildingObj;
     Building selectedBuilding => StageManager.Instance.buildingInfo[selectedBuildingObj.name];
 
     private Vector3 dragOffset;
@@ -19,6 +21,7 @@ public class TouchManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null) Instance = this;
         buildingLayer = GameManager.Instance.BuildingLayer;
         tileLayer = GameManager.Instance.TileLayer;
         gridSystem = StageManager.Instance.gridSystem;
@@ -67,6 +70,10 @@ public class TouchManager : MonoBehaviour
         {
             if (!gridSystem.PlaceBuilding(selectedBuildingObj.transform.position, selectedBuilding))
             {
+                int btnNum = selectedBuilding.currentData.buttonNumber;
+                GameObject buildingButton = StageManager.Instance.buildingButtonObjs[btnNum];
+                buildingButton.SetActive(true);
+                selectedBuildingObj.SetActive(false);
                 selectedBuildingObj.transform.position = selectedBuilding.currentData.originalPosition;
             }
 
@@ -82,7 +89,7 @@ public class TouchManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, buildingLayer))
         {
             selectedBuildingObj = hit.transform.gameObject;
-            if (selectedBuilding.currentData.isPlaced) gridSystem.RemoveBuilding(selectedBuilding);
+            if (selectedBuilding.currentData.isPlaced) gridSystem.RemoveBuilding(selectedBuilding); // 이미 놓여있는 빌딩 선택
 
             if (XZPlane.Raycast(ray, out float distance))
             {

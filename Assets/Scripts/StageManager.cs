@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [DefaultExecutionOrder(0)]
@@ -12,6 +13,7 @@ public class StageManager : MonoBehaviour
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
     public Dictionary<string, Building> buildingInfo { get; private set; }
+    public Dictionary<int, GameObject> buildingButtonObjs;
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
     private GameObject boardObject;
@@ -23,6 +25,7 @@ public class StageManager : MonoBehaviour
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
         buildingInfo = new Dictionary<string, Building>();
+        buildingButtonObjs = new Dictionary<int, GameObject>();
         mainCamera = CameraManager.Instance.mainCamera;
 
         LoadBoard();
@@ -113,6 +116,20 @@ public class StageManager : MonoBehaviour
                 // building button 생성
                 GameObject buttonObj = Instantiate(buildingButtonPrefab, content);
                 buttonObj.name = $"BuildingButton_{i}";
+                buildingButtonObjs[i] = buttonObj;
+
+                BuildingButtonHandler buttonHandler = buttonObj.GetComponent<BuildingButtonHandler>();
+                buttonHandler.Initialize(buildingObj);
+
+                RectTransform buttonRect = buttonObj.GetComponent<RectTransform>();
+                float size = content.rect.height;
+                buttonRect.sizeDelta = new Vector2(size, size);
+
+                TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+                if (buttonText != null)
+                {
+                    buttonText.text = building.currentData.stageBuildingId;
+                }
             }
         }
     }

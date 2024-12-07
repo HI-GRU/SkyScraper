@@ -28,7 +28,7 @@ public class Building
             this.stageBuildingId = stageBuildingId;
             this.originalPosition = originalPosition;
             this.buttonNumber = buttonNumber;
-            this.isPlaced = false;
+            isPlaced = false;
         }
     }
     public RuntimeData currentData { get; private set; }
