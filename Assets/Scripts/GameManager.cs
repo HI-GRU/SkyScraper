@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     // [SerializeField] private GameObject groundPlanePrefab; // 에셋으로 들어갈 평면. 실제 기능은 없음
     [SerializeField] private GameObject[] buildingPrefabs;
     [SerializeField] private GameObject tilePrefab;
-    [SerializeField] private GameObject buildingButtonPrefab;
 
     [Header("GRU Layer Settings")]
     [SerializeField] private LayerMask buildingLayer;
@@ -22,7 +21,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] BuildingPrefabs => buildingPrefabs;
     public GameObject TilePrefab => tilePrefab;
-    public GameObject BuildingButtonPrefab => buildingButtonPrefab;
 
     public LayerMask BuildingLayer => buildingLayer;
     public LayerMask TileLayer => tileLayer;

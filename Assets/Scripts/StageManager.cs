@@ -6,10 +6,11 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance { get; private set; }
 
-    [SerializeField] private RectTransform buttonPanel;
+    [SerializeField] private RectTransform content;
+    [SerializeField] private GameObject buildingButtonPrefab;
+
     private GameObject[] buildingPrefabs;
     private GameObject tilePrefab;
-    private GameObject buildingButtonPrefab;
     public Dictionary<string, Building> buildingInfo { get; private set; }
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
@@ -21,7 +22,6 @@ public class StageManager : MonoBehaviour
         if (Instance == null) Instance = this;
         buildingPrefabs = GameManager.Instance.BuildingPrefabs;
         tilePrefab = GameManager.Instance.TilePrefab;
-        buildingButtonPrefab = GameManager.Instance.BuildingButtonPrefab;
         buildingInfo = new Dictionary<string, Building>();
         mainCamera = CameraManager.Instance.mainCamera;
 
@@ -111,7 +111,8 @@ public class StageManager : MonoBehaviour
                 buildingObj.SetActive(false);
 
                 // building button 생성
-                GameObject buttonObj = Instantiate(buildingButtonPrefab, buttonPanel);
+                GameObject buttonObj = Instantiate(buildingButtonPrefab, content);
+                buttonObj.name = $"BuildingButton_{i}";
             }
         }
     }

@@ -1037,7 +1037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca159c3411ba5846a3e54755340925d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPanel: {fileID: 1324476349}
+  content: {fileID: 51751456}
+  buildingButtonPrefab: {fileID: 1582699667325322137, guid: 279c086c9b3d72c4aab02cc963e0c8f0, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
