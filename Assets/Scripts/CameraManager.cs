@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
 
     private Vector3 center; // 타일 중심
     private Vector3 cameraPosition => getCameraPos(); // 타일 중심을 기준으로 반지름만큼 떨어진 위치
-    private float angleX = 30F; // YZ 평면으로부터 회전한 값
+    private float angleX = 30F; // YZ 평면으로부터 회전한 값. 이 변수를 바꾸면 동서남북에서 보는 관점으로 변경 가능
     private float angleY = -45F; // 카메라 회전 시 변하는 값
     private float radius => Math.Max(currentStage.size.x, Math.Max(currentStage.size.y, currentStage.size.z)) * 10F;
 
