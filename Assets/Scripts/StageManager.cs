@@ -82,6 +82,7 @@ public class StageManager : MonoBehaviour
                 GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
                 tileObj.name = $"Tile_{x}_{z}";
                 tileObj.layer = LayerMask.NameToLayer("Tile");
+                CreateCollider(tileObj);
             }
         }
     }
@@ -102,10 +103,7 @@ public class StageManager : MonoBehaviour
                 GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
-
-                // Collider 설정
-                MeshCollider meshCollider = buildingObj.AddComponent<MeshCollider>();
-                meshCollider.convex = true;
+                CreateCollider(buildingObj);
 
                 // 현재 스테이지 Runtime Data 설정
                 building.SetStageInfo(buildingObj.name, buildingObj.transform.position, i);
@@ -142,5 +140,10 @@ public class StageManager : MonoBehaviour
         }
         Debug.LogError($"Building prefab not found: {buildingId}");
         return null;
+    }
+
+    private void CreateCollider(GameObject obj)
+    {
+        BoxCollider collider = obj.AddComponent<BoxCollider>();
     }
 }
