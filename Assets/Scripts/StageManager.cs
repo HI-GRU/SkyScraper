@@ -123,6 +123,7 @@ public class StageManager : MonoBehaviour
                 float size = content.rect.height;
                 buttonRect.sizeDelta = new Vector2(size, size);
 
+                // TODO: 빌딩 그림으로 변경
                 TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
                 if (buttonText != null)
                 {
