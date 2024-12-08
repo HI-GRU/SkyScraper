@@ -34,10 +34,7 @@ public class TouchManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            HandleSelecting();
-        }
+        if (Input.GetMouseButtonDown(0)) HandleSelecting();
     }
 
     private void HandleDragging()
