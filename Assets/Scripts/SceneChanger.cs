@@ -36,21 +36,6 @@ public class SceneChanger : MonoBehaviour
 
         // 스테이지 버튼 생성
         CreateStageButtons(stageButtonsPanel.transform);
-
-        // 뒤로가기 버튼 생성
-        GameObject backButton = Instantiate(buttonPrefab, stagePanel.transform);
-        backButton.name = "BackButton";
-        RectTransform backButtonRect = backButton.GetComponent<RectTransform>();
-        backButtonRect.anchorMin = new Vector2(0, 1);
-        backButtonRect.anchorMax = new Vector2(0, 1);
-        backButtonRect.pivot = new Vector2(0, 1);
-        backButtonRect.anchoredPosition = new Vector2(50, -50);
-
-        // 뒤로가기 버튼 설정
-        Button backButtonComp = backButton.GetComponent<Button>();
-        TextMeshProUGUI backButtonText = backButton.GetComponentInChildren<TextMeshProUGUI>();
-        backButtonText.text = "Back";
-        backButtonComp.onClick.AddListener(ShowMainPanel);
     }
 
     private void CreateStageButtons(Transform parent)
