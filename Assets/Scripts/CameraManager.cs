@@ -23,6 +23,11 @@ public class CameraManager : MonoBehaviour
     private Vector2 dragStartPosition;
     private const float ANGLE_SMOOTHING = 10F;
 
+    // 줌인
+    private float minZoom = 2F;
+    private float maxZoom => radius * 3F;
+    private float zoomSensitivity = 1F;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -45,6 +50,8 @@ public class CameraManager : MonoBehaviour
             return;
         }
         if (Input.GetMouseButtonDown(0)) CheckRotate();
+
+        HandleZoom();
     }
 
     private void RotateCamera()
@@ -110,5 +117,18 @@ public class CameraManager : MonoBehaviour
 
         isDragging = CanRotate;
         if (isDragging) dragStartPosition = Input.mousePosition;
+    }
+
+    private void HandleZoom()
+    {
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            float scroll = Input.mouseScrollDelta.y;
+            if (scroll != 0)
+            {
+                float size = mainCamera.orthographicSize - scroll * zoomSensitivity;
+                mainCamera.orthographicSize = Mathf.Clamp(size, minZoom, maxZoom);
+            }
+        }
     }
 }
