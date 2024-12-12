@@ -91,7 +91,7 @@ public class CameraManager : MonoBehaviour
         // 3D 오브젝트 클릭 여부
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, GameManager.Instance.BuildingLayer))
         {
             CanRotate = !hit.collider.gameObject.activeInHierarchy;
         }
