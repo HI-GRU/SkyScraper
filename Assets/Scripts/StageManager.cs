@@ -156,8 +156,8 @@ public class StageManager : MonoBehaviour
 
         if (isCleared)
         {
-            Debug.Log("Stage Clear");
-            // TODO: 클리어 화면 생성
+            
+            GameUIManager.Instance.ShowClearPanel();
         }
 
         // clearChecker.DebugCheck();
