@@ -38,6 +38,7 @@ public class SceneChanger : MonoBehaviour
         CreateStageButtons(stageButtonsPanel.transform);
     }
 
+    // TODO: 테마 선택 씬 넣으면 삭제 예정
     private void CreateStageButtons(Transform parent)
     {
         for (int i = 1; i <= stageLength; i++)
