@@ -71,6 +71,10 @@ public class TouchManager : MonoBehaviour
                 selectedBuildingObj.SetActive(false);
                 selectedBuildingObj.transform.position = selectedBuilding.currentData.originalPosition;
             }
+            else
+            {
+                StageManager.Instance.CheckClearCondition();
+            }
 
             selectedBuildingObj = null;
         }

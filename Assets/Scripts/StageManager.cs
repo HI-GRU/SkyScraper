@@ -17,6 +17,7 @@ public class StageManager : MonoBehaviour
     private Stage currentStage;
     public GridSystem gridSystem { get; private set; }
     private GameObject boardObject;
+    private ClearChecker clearChecker;
     public Camera mainCamera { get; private set; }
 
     private void Awake()
@@ -30,6 +31,8 @@ public class StageManager : MonoBehaviour
 
         LoadBoard();
         CreateStage();
+
+        clearChecker = new ClearChecker(currentStage, gridSystem);
     }
 
     public void LoadBoard()
@@ -99,8 +102,7 @@ public class StageManager : MonoBehaviour
             if (buildingPrefab != null)
             {
                 Vector3 position = new Vector3(0F, 0F, i * 2F);
-                // GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.identity, boardObject.transform);
-                GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(90F, 0F, 0F), boardObject.transform);
+                GameObject buildingObj = Instantiate(buildingPrefab, position, Quaternion.Euler(-90, 0, 0), boardObject.transform);
                 buildingObj.name = $"Building_{i}";
                 buildingObj.layer = LayerMask.NameToLayer("Building");
                 CreateCollider(buildingObj);
@@ -146,5 +148,18 @@ public class StageManager : MonoBehaviour
     private void CreateCollider(GameObject obj)
     {
         BoxCollider collider = obj.AddComponent<BoxCollider>();
+    }
+
+    public void CheckClearCondition()
+    {
+        bool isCleared = clearChecker.CheckClear();
+
+        if (isCleared)
+        {
+            Debug.Log("Stage Clear");
+            // TODO: 클리어 화면 생성
+        }
+
+        // clearChecker.DebugCheck();
     }
 }
