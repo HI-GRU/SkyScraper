@@ -26,7 +26,7 @@ public class StageData : ScriptableObject
                    new bool[1,1,1] {
                     {{true}}
                    },
-                   "blue_1.1.1"
+                   "house_1.1.1"
                )
            },
            new Dictionary<Direction, int>
