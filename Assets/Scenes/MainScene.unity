@@ -1174,7 +1174,7 @@ MonoBehaviour:
   - {fileID: 919132149155446097, guid: d9dc97be90fe02a4dbf58d99cdee1a79, type: 3}
   - {fileID: 919132149155446097, guid: 139d786f93bcea54cb4098b8944745ce, type: 3}
   - {fileID: 919132149155446097, guid: 3f309cf0c38ad4b41a8c08f8021d3546, type: 3}
-  - {fileID: 919132149155446097, guid: 2edc45ff7ef724f488de57755da53ada, type: 3}
+  - {fileID: 919132149155446097, guid: 753b9096e165d0540a6c71634ae8853b, type: 3}
   - {fileID: 919132149155446097, guid: 4f4de6a2eb354e941a737fb3b4f4f335, type: 3}
   tilePrefab: {fileID: 919132149155446097, guid: 33f9a5a2c8a0600408297cf2072a5b55, type: 3}
   buildingLayer:
