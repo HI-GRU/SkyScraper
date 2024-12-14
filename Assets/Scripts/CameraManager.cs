@@ -27,6 +27,8 @@ public class CameraManager : MonoBehaviour
     private float minZoom = 2F;
     private float maxZoom => radius * 3F;
     private float zoomSensitivity = 1F;
+    private float targetSize; // 목표 카메라 사이즈
+    private float smoothSpeed = 10F; // 줌 전환 속도 (높을수록 빠름)
 
     private void Awake()
     {
@@ -40,6 +42,7 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         SetMainView();
+        targetSize = mainCamera.orthographicSize;
     }
 
     private void Update()
@@ -50,7 +53,6 @@ public class CameraManager : MonoBehaviour
             return;
         }
         if (Input.GetMouseButtonDown(0)) CheckRotate();
-
         HandleZoom();
     }
 
@@ -116,19 +118,28 @@ public class CameraManager : MonoBehaviour
         }
 
         isDragging = CanRotate;
-        if (isDragging) dragStartPosition = Input.mousePosition;
+        if (isDragging)
+        {
+            dragStartPosition = Input.mousePosition;
+            targetSize = mainCamera.orthographicSize;
+        }
     }
 
     private void HandleZoom()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        float scroll = Input.mouseScrollDelta.y;
+        if (scroll != 0)
         {
-            float scroll = Input.mouseScrollDelta.y;
-            if (scroll != 0)
-            {
-                float size = mainCamera.orthographicSize - scroll * zoomSensitivity;
-                mainCamera.orthographicSize = Mathf.Clamp(size, minZoom, maxZoom);
-            }
+            targetSize = Mathf.Clamp(targetSize - scroll * zoomSensitivity, minZoom, maxZoom);
+        }
+
+        if (mainCamera.orthographicSize != targetSize)
+        {
+            mainCamera.orthographicSize = Mathf.Lerp(
+                mainCamera.orthographicSize,
+                targetSize,
+                Time.deltaTime * smoothSpeed
+            );
         }
     }
 }
