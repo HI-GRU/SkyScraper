@@ -14,13 +14,13 @@ public class StageData : ScriptableObject
                    new bool[1,3,1] {
                     {{true}, {true}, {true}}
                    },
-                   "yellow_1.3.1"
+                   "mansion_1.3.1"
                ),
                new Building(
                    new bool[1,2,1] {
                     {{true}, {true}}
                    },
-                   "green_1.2.1"
+                   "villa_1.2.1"
                ),
                new Building(
                    new bool[1,1,1] {
@@ -36,21 +36,25 @@ public class StageData : ScriptableObject
             }
        ) ,
         new Stage(
-           new Vector3(1, 4, 2),
+           new Vector3(2, 5, 2),
            new Building[]
            {
                new Building(
                    new bool[1,3,1] {
                     {{true}, {true}, {true}}
                    },
-                   "yellow_1.3.1"
+                   "mansion_1.3.1"
                ),
                new Building(
-                   new bool[2,1,1] {
-                    {{true}}, {{true}}
+                   new bool[1,5,1] {
+                    {{true}, {true}, {true}, {true}, {true}}
                    },
-                   "s_blue_2.1.1"
-               )
+                   "empire_1.5.1"
+               ),
+               new Building(
+                    new bool[2,2,1] { { {true}, {true} }, { {true}, {true} } },
+                    "mall_2.2.1"
+               ),
            },
            new Dictionary<Direction, int>
            {

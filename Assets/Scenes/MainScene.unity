@@ -1169,14 +1169,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPrefabs:
-  - {fileID: 919132149155446097, guid: 2615585cc0b7f01449211ecb7466289c, type: 3}
-  - {fileID: 919132149155446097, guid: b6cb27951f2907349a2997511a4632f0, type: 3}
-  - {fileID: 919132149155446097, guid: 29cda18015b53c14f89d1aa959dac034, type: 3}
-  - {fileID: 919132149155446097, guid: 8f62c49d155341c4f801e78ace16e7a5, type: 3}
-  - {fileID: 919132149155446097, guid: 072e1e862b1936c418e35c60ca8a08f3, type: 3}
-  - {fileID: 919132149155446097, guid: 87d26c2a7dbf3d64e93ef8cafbcadce4, type: 3}
+  - {fileID: 919132149155446097, guid: bf234887464775c479b7009966d6671f, type: 3}
+  - {fileID: 919132149155446097, guid: 5ddcc4bf66a7f6b44bb1aaa93095fff3, type: 3}
   - {fileID: 919132149155446097, guid: d9dc97be90fe02a4dbf58d99cdee1a79, type: 3}
-  tilePrefab: {fileID: 919132149155446097, guid: e76b7f02f613e8d4c807901ee768f0dd, type: 3}
+  - {fileID: 919132149155446097, guid: 139d786f93bcea54cb4098b8944745ce, type: 3}
+  - {fileID: 919132149155446097, guid: 3f309cf0c38ad4b41a8c08f8021d3546, type: 3}
+  - {fileID: 919132149155446097, guid: 2edc45ff7ef724f488de57755da53ada, type: 3}
+  - {fileID: 919132149155446097, guid: 4f4de6a2eb354e941a737fb3b4f4f335, type: 3}
+  tilePrefab: {fileID: 919132149155446097, guid: 33f9a5a2c8a0600408297cf2072a5b55, type: 3}
   buildingLayer:
     serializedVersion: 2
     m_Bits: 64

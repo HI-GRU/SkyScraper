@@ -82,7 +82,7 @@ public class StageManager : MonoBehaviour
             for (int z = 0; z < gridSystem.size.z; z++)
             {
                 Vector3 position = new Vector3(x, 0, z);
-                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.identity, boardObject.transform);
+                GameObject tileObj = Instantiate(tilePrefab, position, Quaternion.Euler(-90, 0, 0), boardObject.transform);
                 tileObj.name = $"Tile_{x}_{z}";
                 tileObj.layer = LayerMask.NameToLayer("Tile");
                 CreateCollider(tileObj);
@@ -156,7 +156,7 @@ public class StageManager : MonoBehaviour
 
         if (isCleared)
         {
-            
+
             GameUIManager.Instance.ShowClearPanel();
         }
 
