@@ -58,7 +58,7 @@ public class StageData : ScriptableObject
            },
            new Dictionary<Direction, int>
            {
-            { Direction.North, 1 },
+            { Direction.North, 3 },
             { Direction.South, 2 }
             }
        ),
